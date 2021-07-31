@@ -5,7 +5,6 @@ export const readDirectory = (dir) => {
   return new Promise((resolve, reject) => {
     fs.readdir(path.resolve(__dirname,'..',dir), (error, files) => {
       if (error) {
-				console.log('dir err',error);
         reject(error);
       }
 

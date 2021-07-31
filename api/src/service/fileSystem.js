@@ -1,4 +1,5 @@
 import { readDirectory,getFileDetails } from '../utils/files';
+import BadRequest from '../error/BadRequest';
 
 export const getFilesDetailsFromDirectory = async (directory) => {
 	try {
@@ -6,7 +7,9 @@ export const getFilesDetailsFromDirectory = async (directory) => {
 		const fileStats = await Promise.all(files.map(async file => {
 			try {
 				const stats = await getFileDetails(directory,file);
-				return {...stats,name:file};
+				const fileSize = stats.size
+				const isDirectory = stats.isDirectory();
+				return {size:fileSize,isDirectory,name:file};
 			} catch (error) {
 				return {error:true};
 			}
@@ -14,6 +17,9 @@ export const getFilesDetailsFromDirectory = async (directory) => {
 
 		return fileStats;
 	} catch (error) {
-		throw error;
+		throw new BadRequest({
+			message: 'Error Processing the Directory',
+			details: error.toString()
+		})
 	}
 };
