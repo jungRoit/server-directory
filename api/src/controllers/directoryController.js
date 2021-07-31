@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import BadRequest from '../error/BadRequest';
-import fileService from '../service/fileSystem';
+import {getFilesDetailsFromDirectory} from '../service/fileSystem';
 
 const directoryController = Router();
 
@@ -15,9 +15,10 @@ directoryController.get('/', async (req, res, next) => {
 		}
 
 		const directory = req.query.directory;
-		console.log('directory',directory);
 
-		res.status(200).json({directory});
+		const directoryDetails = await getFilesDetailsFromDirectory(directory);
+
+		res.status(200).json({directory,details:directoryDetails});
 	} catch (error) {
 		next(error);
 	}

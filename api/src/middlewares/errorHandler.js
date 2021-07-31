@@ -28,6 +28,6 @@ export const genericErrorHandler = (Error, req, res, next) => {
     error['trace'] = stack;
   }
 
-  const code = Error.code ? Error.code : 500;
+  const code = 500;
   res.status(code).json(error);
 };
