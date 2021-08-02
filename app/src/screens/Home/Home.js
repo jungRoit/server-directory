@@ -6,14 +6,16 @@ import SearchBar from "../../components/SearchBar";
 
 import { GET_DIRECTORY } from "../../constants/endpoints";
 import * as httpService from "../../services/httpService";
-import GridItem from "../../components/GridItem";
-import ListItem from "../../components/ListItem";
+
 import DirectoryViewer from "../../components/DIrectoryViewer";
+import FileDetailsModal from "../../components/FileDetailsModal";
 
 const Home = () => {
   const [searchText, setSearchText] = useState("/home");
   const [directories, setDirectories] = useState([]);
   const [viewType, setViewType] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     async function getDirectory() {
@@ -54,6 +56,9 @@ const Home = () => {
       const path = `${searchText}/${directory.name}`;
       setSearchText(path);
       fetchDirectory(path);
+    }else {
+      setSelectedFile(directory);
+      setModalOpen(true);
     }
   };
 
@@ -95,9 +100,20 @@ const Home = () => {
           <h1>filters</h1>
         </div>
         <div className="main">
-          <DirectoryViewer handleDirectoryClick={handleDirectoryClick} directories={directories} viewType={viewType} />
+          <DirectoryViewer
+            handleDirectoryClick={handleDirectoryClick}
+            directories={directories}
+            viewType={viewType}
+          />
         </div>
       </div>
+      <FileDetailsModal
+        open={modalOpen}
+        onModalClose={() => {
+          setModalOpen(false);
+        }}
+        directory={selectedFile}
+      />
     </div>
   );
 };
