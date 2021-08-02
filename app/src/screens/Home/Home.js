@@ -1,10 +1,25 @@
-import react from "react";
+import { useState } from "react";
+import SearchBar from "../../components/SearchBar";
 
 const Home = () => {
+  const [directory, setDirectory] = useState("/home");
+
+  const handleSearchChange = (e) => {
+    setDirectory(e.target.value);
+  };
+
   return (
     <div className="container">
       <div className="header">
-        <h1>header</h1>
+        <div className={"header-left"}>
+          <h1>Server Directory</h1>
+        </div>
+        <div className={"header-center"}>
+          <SearchBar value={directory} onChange={handleSearchChange} />
+        </div>
+        <div className={"header-right"}>
+          <h1>header right</h1>
+        </div>
       </div>
       <div className="content">
         <div className="sidebar">
