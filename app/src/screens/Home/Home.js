@@ -1,28 +1,33 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import debounce from "lodash.debounce";
+
 import SearchBar from "../../components/SearchBar";
 
 import { GET_DIRECTORY } from "../../constants/endpoints";
 import * as httpService from "../../services/httpService";
 
 const Home = () => {
-  const [directory, setDirectory] = useState("/home");
+  const [searchText, setSearchText] = useState("/home");
+  const [directories, setDirectories] = useState([]);
+
+  const fetchDirectory = useCallback(
+    debounce(async (value) => {
+      try {
+        const { data } = await httpService.get(
+          `${process.env.REACT_APP_API_BASE_URL}${GET_DIRECTORY}?directory=${value}`
+        );
+        setDirectories(data.data);
+      } catch (error) {
+        setDirectories([]);
+      }
+    }, 3000),
+    []
+  );
 
   const handleSearchChange = (e) => {
-    setDirectory(e.target.value);
+    setSearchText(e.target.value);
+    fetchDirectory(e.target.value);
   };
-
-  useEffect(() => {
-    async function getDirectory() {
-      try {
-        const response = await httpService.get(
-          `${process.env.REACT_APP_API_BASE_URL}${GET_DIRECTORY}?directory=${directory}`
-        );
-      } catch (error) {
-      }
-    }
-
-    getDirectory();
-  }, [directory]);
 
   return (
     <div className="container">
@@ -31,7 +36,7 @@ const Home = () => {
           <h1>Server Directory</h1>
         </div>
         <div className={"header-center"}>
-          <SearchBar value={directory} onChange={handleSearchChange} />
+          <SearchBar value={searchText} onChange={handleSearchChange} />
         </div>
         <div className={"header-right"}>
           <h1>header right</h1>
