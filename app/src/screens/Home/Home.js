@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar";
+
+import { GET_DIRECTORY } from "../../constants/endpoints";
+import * as httpService from "../../services/httpService";
 
 const Home = () => {
   const [directory, setDirectory] = useState("/home");
@@ -7,6 +10,19 @@ const Home = () => {
   const handleSearchChange = (e) => {
     setDirectory(e.target.value);
   };
+
+  useEffect(() => {
+    async function getDirectory() {
+      try {
+        const response = await httpService.get(
+          `${process.env.REACT_APP_API_BASE_URL}${GET_DIRECTORY}?directory=${directory}`
+        );
+      } catch (error) {
+      }
+    }
+
+    getDirectory();
+  }, [directory]);
 
   return (
     <div className="container">
