@@ -2,6 +2,10 @@
   color: #C1C0BF;
 }
 
+.select-view-icon {
+  margin: 4px;
+}
+
 .link {
   text-decoration: none;
   color: #41444b;
@@ -11,7 +15,6 @@
 
 .link:hover {
   cursor: pointer;
-  border: 1px solid #41444b;
 }
 
 .link:focus {

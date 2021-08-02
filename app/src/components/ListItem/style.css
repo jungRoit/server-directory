@@ -1,0 +1,40 @@
+.list-item {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    padding:8px 4px;
+    padding-top: 0;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #41444b;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .list-item:hover {
+    background-color: #f1f2f3;
+  }
+  
+  .list-item-icon-wrapper {
+    display: flex;
+    flex: 1;
+  }
+  
+  .list-item-name-wrapper {
+    display: flex;
+    flex: 2;
+  }
+  
+  .list-item-path-wrapper {
+    display: flex;
+    flex: 3;
+  }
+  
+  .list-item-modified-wrapper {
+    display: flex;
+    flex: 5;
+  }
+  
+  .list-item-size-wrapper {
+    display: flex;
+    flex: 2;
+  }

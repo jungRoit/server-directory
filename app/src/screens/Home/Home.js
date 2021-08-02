@@ -1,15 +1,33 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import debounce from "lodash.debounce";
+import { FaTh, FaThList } from "react-icons/fa";
 
 import SearchBar from "../../components/SearchBar";
 
 import { GET_DIRECTORY } from "../../constants/endpoints";
 import * as httpService from "../../services/httpService";
 import GridItem from "../../components/GridItem";
+import ListItem from "../../components/ListItem";
 
 const Home = () => {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState("/home");
   const [directories, setDirectories] = useState([]);
+  const [viewType, setViewType] = useState(0);
+
+  useEffect(() => {
+    async function getDirectory() {
+      try {
+        const { data } = await httpService.get(
+          `${process.env.REACT_APP_API_BASE_URL}${GET_DIRECTORY}?directory=${searchText}`
+        );
+        setDirectories(data.data);
+      } catch (error) {
+        setDirectories([]);
+      }
+    }
+
+    getDirectory();
+  }, []);
 
   const fetchDirectory = useCallback(
     debounce(async (value) => {
@@ -52,22 +70,47 @@ const Home = () => {
           />
         </div>
         <div className={"header-right"}>
-          <h1>header right</h1>
+          <button
+            onClick={() => {
+              setViewType(0);
+            }}
+            className={"link select-view-icon"}
+          >
+            <FaTh color={viewType === 0 ? "#309bed" : "#fff"} size={22} />
+          </button>
+          <button className={"link select-view-icon"}>
+            <FaThList
+              onClick={() => {
+                setViewType(1);
+              }}
+              color={viewType === 1 ? "#309bed" : "#fff"}
+              size={22}
+            />
+          </button>
         </div>
       </div>
       <div className="content">
         <div className="sidebar">
-          <h1>right</h1>
+          <h1>filters</h1>
         </div>
         <div className="main">
-          {directories.map((directory) => (
-            <GridItem
-              directory={directory}
-              onClick={() => {
-                handleDirectoryClick(directory);
-              }}
-            />
-          ))}
+          {directories.map((directory) =>
+            viewType === 0 ? (
+              <GridItem
+                directory={directory}
+                onClick={() => {
+                  handleDirectoryClick(directory);
+                }}
+              />
+            ) : (
+              <ListItem
+                directory={directory}
+                onClick={() => {
+                  handleDirectoryClick(directory);
+                }}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

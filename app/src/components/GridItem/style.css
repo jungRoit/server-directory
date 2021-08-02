@@ -5,7 +5,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 8px;
+    margin: 0 8px 8px 8px;
+  }
+
+  .grid-item:hover {
+    border: 1px solid #41444b;
   }
   
   .grid-item-icon-wrapper {
