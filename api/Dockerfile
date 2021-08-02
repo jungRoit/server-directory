@@ -1,14 +1,13 @@
-FROM node:12
+FROM node:lts
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN yarn
+RUN npm install
 
 COPY . .
 
-Run yarn start
-
 EXPOSE 9090
 
+CMD [ "npm", "start" ]

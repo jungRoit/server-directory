@@ -12,7 +12,7 @@ import FileDetailsModal from "../../components/FileDetailsModal";
 import SideBar from "../../components/SideBar";
 
 const Home = () => {
-  const [searchText, setSearchText] = useState("/home");
+  const [searchText, setSearchText] = useState("/");
   const [directories, setDirectories] = useState([]);
   const [viewType, setViewType] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
