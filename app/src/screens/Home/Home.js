@@ -8,6 +8,7 @@ import { GET_DIRECTORY } from "../../constants/endpoints";
 import * as httpService from "../../services/httpService";
 import GridItem from "../../components/GridItem";
 import ListItem from "../../components/ListItem";
+import DirectoryViewer from "../../components/DIrectoryViewer";
 
 const Home = () => {
   const [searchText, setSearchText] = useState("/home");
@@ -94,23 +95,7 @@ const Home = () => {
           <h1>filters</h1>
         </div>
         <div className="main">
-          {directories.map((directory) =>
-            viewType === 0 ? (
-              <GridItem
-                directory={directory}
-                onClick={() => {
-                  handleDirectoryClick(directory);
-                }}
-              />
-            ) : (
-              <ListItem
-                directory={directory}
-                onClick={() => {
-                  handleDirectoryClick(directory);
-                }}
-              />
-            )
-          )}
+          <DirectoryViewer handleDirectoryClick={handleDirectoryClick} directories={directories} viewType={viewType} />
         </div>
       </div>
     </div>
