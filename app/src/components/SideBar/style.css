@@ -1,0 +1,25 @@
+.filter-directory-type {
+    margin-top: 24px;
+  }
+  
+  .filter-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .filter-item {
+    display: flex;
+    flex: 1;
+    margin: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .filter-directory-type-label {
+    font-weight: bold;
+  }
+  
+  .filter-radio {
+    margin-top: 2px;
+    margin-left: 8px;
+  }

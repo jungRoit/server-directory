@@ -9,6 +9,7 @@ import * as httpService from "../../services/httpService";
 
 import DirectoryViewer from "../../components/DIrectoryViewer";
 import FileDetailsModal from "../../components/FileDetailsModal";
+import SideBar from "../../components/SideBar";
 
 const Home = () => {
   const [searchText, setSearchText] = useState("/home");
@@ -16,6 +17,7 @@ const Home = () => {
   const [viewType, setViewType] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileType, setFileType] = useState(0);
 
   useEffect(() => {
     async function getDirectory() {
@@ -56,7 +58,7 @@ const Home = () => {
       const path = `${searchText}/${directory.name}`;
       setSearchText(path);
       fetchDirectory(path);
-    }else {
+    } else {
       setSelectedFile(directory);
       setModalOpen(true);
     }
@@ -96,14 +98,13 @@ const Home = () => {
         </div>
       </div>
       <div className="content">
-        <div className="sidebar">
-          <h1>filters</h1>
-        </div>
+        <SideBar fileType={fileType} setFileType={setFileType} />
         <div className="main">
           <DirectoryViewer
             handleDirectoryClick={handleDirectoryClick}
             directories={directories}
             viewType={viewType}
+            fileType={fileType}
           />
         </div>
       </div>

@@ -48,6 +48,8 @@
   flex: 1;
   background-color: #f1f2f3;
   border-right: 1px solid #1d2531;
+  align-items: center;
+  flex-direction: column;
 }
 
 .main {
