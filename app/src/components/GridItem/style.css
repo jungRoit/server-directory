@@ -1,0 +1,22 @@
+.grid-item {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 8px;
+  }
+  
+  .grid-item-icon-wrapper {
+    width: 100%;
+    display: flex;
+    margin-bottom: 12px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .grid-item-text {
+    width: 100%;
+    word-wrap: break-word;
+  }

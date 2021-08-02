@@ -6,6 +6,7 @@ const SearchBar = (props) => (
     className="search-bar"
     value={props.value}
     onChange={props.onChange}
+    placeholder={props.placeholder}
   />
 );
 

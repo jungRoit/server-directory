@@ -1,3 +1,19 @@
 .header {
   color: #C1C0BF;
 }
+
+.link {
+  text-decoration: none;
+  color: #41444b;
+  background-color: transparent;
+  border: none;
+}
+
+.link:hover {
+  cursor: pointer;
+  border: 1px solid #41444b;
+}
+
+.link:focus {
+  outline: none;
+}

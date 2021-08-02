@@ -5,9 +5,10 @@ import SearchBar from "../../components/SearchBar";
 
 import { GET_DIRECTORY } from "../../constants/endpoints";
 import * as httpService from "../../services/httpService";
+import GridItem from "../../components/GridItem";
 
 const Home = () => {
-  const [searchText, setSearchText] = useState("/home");
+  const [searchText, setSearchText] = useState("");
   const [directories, setDirectories] = useState([]);
 
   const fetchDirectory = useCallback(
@@ -20,13 +21,21 @@ const Home = () => {
       } catch (error) {
         setDirectories([]);
       }
-    }, 3000),
+    }, 1000),
     []
   );
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
     fetchDirectory(e.target.value);
+  };
+
+  const handleDirectoryClick = (directory) => {
+    if (directory.isDirectory) {
+      const path = `${searchText}/${directory.name}`;
+      setSearchText(path);
+      fetchDirectory(path);
+    }
   };
 
   return (
@@ -36,7 +45,11 @@ const Home = () => {
           <h1>Server Directory</h1>
         </div>
         <div className={"header-center"}>
-          <SearchBar value={searchText} onChange={handleSearchChange} />
+          <SearchBar
+            placeholder={"Search Directory:"}
+            value={searchText}
+            onChange={handleSearchChange}
+          />
         </div>
         <div className={"header-right"}>
           <h1>header right</h1>
@@ -47,7 +60,14 @@ const Home = () => {
           <h1>right</h1>
         </div>
         <div className="main">
-          <h1>left</h1>
+          {directories.map((directory) => (
+            <GridItem
+              directory={directory}
+              onClick={() => {
+                handleDirectoryClick(directory);
+              }}
+            />
+          ))}
         </div>
       </div>
     </div>

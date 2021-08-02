@@ -52,4 +52,7 @@
 .main {
 	display: flex;
 	flex: 4;
+	align-content: flex-start;
+	flex-wrap: wrap;
+	padding: 10px;
 }
