@@ -18,7 +18,7 @@ directoryController.get('/', async (req, res, next) => {
 
 		const directoryDetails = await getFilesDetailsFromDirectory(directory);
 
-		res.status(200).json({directory,details:directoryDetails});
+		res.status(200).json({data:directoryDetails});
 	} catch (error) {
 		next(error);
 	}

@@ -9,7 +9,14 @@ export const getFilesDetailsFromDirectory = async (directory) => {
 				const stats = await getFileDetails(directory,file);
 				const fileSize = stats.size
 				const isDirectory = stats.isDirectory();
-				return {size:fileSize,isDirectory,name:file};
+				return {
+					size:fileSize,
+					isDirectory,
+					name:file,
+					lastAccessed: stats.atime,
+					lastModified: stats.mtime,
+					path: directory
+				};
 			} catch (error) {
 				return {error:true};
 			}
